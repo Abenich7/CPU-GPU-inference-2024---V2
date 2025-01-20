@@ -30,8 +30,6 @@ sys.path.insert(0,inference_dir)
 
 import pytorch_test
 
-
-
 import matplotlib.pyplot as plt
 
 
@@ -55,7 +53,7 @@ device = "cpu"
 print(f"Using {device} device")
 
 
-batch_size = 512
+batch_size = 64
 
 # Load datasets
 train_dataloader = DataLoader(train_dataset, batch_size=batch_size)
@@ -84,7 +82,7 @@ total_time=0
 # Paths and Initialization
 model_dir = r"C:\Users\Abeni07\source\repos\CPU-GPU-inference-2024\Models\trained_models"
 timestamp = int(time.time())
-model_name = os.path.join(model_dir, f"model_weights_{timestamp}.pth")
+model_name = os.path.join(model_dir, f"model_weights.pth")
 os.makedirs(model_dir, exist_ok=True)
 
 total_time = 0  # Initialize total time counter

@@ -55,7 +55,7 @@ device = "cpu"
 print(f"Using {device} device")
 
 
-batch_size = 512
+batch_size = 64
 
 # Load datasets
 train_dataloader = DataLoader(train_dataset, batch_size=batch_size,shuffle=True)
@@ -83,8 +83,7 @@ epochs = 21
 total_time=0
 
 
-checkpoint_path = "model_checkpoint.pth"
-
+checkpoint_path = 'model_weights.pth'
 
 
 # בדיקת קיום Checkpoint וטענתו אם קיים
@@ -121,13 +120,7 @@ for t in range(epochs):
     pytorch_train.train(train_dataloader, model, loss_fn, optimizer)
     
 
-    #Save model weights
-    torch.save({
-    'epoch': t,
-    'model_state_dict': model.state_dict(),
-    'optimizer_state_dict': optimizer.state_dict(),
-    'loss': loss_fn,
-    }, checkpoint_path)
+    
    # model_filename="model_weights.pth"
     #torch.save(model.state_dict(), model_filename)
 
@@ -145,9 +138,16 @@ print("Done!")
 avg_time= total_time/epochs
 print(f"Average training time: {avg_time} seconds \n")
 
+#Save model weights
+torch.save({
+    'epoch': t,
+    'model_state_dict': model.state_dict(),
+    'optimizer_state_dict': optimizer.state_dict(),
+    'loss': loss_fn,
+    }, checkpoint_path)
 
 #torch.save(model.state_dict(), model_filename)
-print(f"Saved PyTorch Model State to {model_filename}\n")
+print(f"Saved PyTorch Model State to {checkpoint_path}\n")
 
 fig,ax = plt.subplots(figsize=(8, 6))
 ax.scatter(X_0[:,0],X_0[:,1])

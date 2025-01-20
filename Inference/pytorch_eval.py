@@ -27,6 +27,15 @@ import os
 import torchvision.models as models
 import pytorch_test
 import matplotlib.pyplot as plt
+import torch
+from torch import nn
+from torch.utils.data import DataLoader
+from torchvision import datasets
+from torchvision.transforms import ToTensor
+import os
+import time
+import torchvision.models as models
+import sys
 
 
 TEST_DATASET_PATH = r"C:\Users\Abeni07\data\concentric_circles_tensor_test_dataset.pt"
@@ -34,11 +43,21 @@ TEST_DATASET_PATH = r"C:\Users\Abeni07\data\concentric_circles_tensor_test_datas
 device="cpu"
 
 model = pytorch_model.NeuralNetwork().to(device)
-#model = models.vgg16()
-model.load_state_dict(torch.load(r"C:\Users\Abeni07\source\repos\CPU-GPU-inference-2024\Models\trained_models\model_weights.pth", weights_only=True))
+#model = models.vgg16()s
 
 
 loss_fn = nn.CrossEntropyLoss()
+
+checkpoint_path=r"C:\Users\Abeni07\source\repos\CPU-GPU-inference-2024\Scripts1\model_weights.pth"
+
+if os.path.exists(checkpoint_path):
+    checkpoint = torch.load(checkpoint_path)
+    model.load_state_dict(checkpoint['model_state_dict'])
+    
+else:
+  
+    print("No checkpoint found, starting from scratch")
+
 
 num_samples=2000 
 
@@ -77,6 +96,9 @@ ax.scatter(X_1[:,0],X_1[:,1])
 plt.title("MODEL")
 plt.grid(True)
 plt.show()
+
+
+
 
 
 

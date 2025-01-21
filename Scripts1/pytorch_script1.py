@@ -77,7 +77,7 @@ loss_fn = nn.CrossEntropyLoss()
 optimizer = torch.optim.SGD(model.parameters(), lr=1e-3)
 
 
-epochs = 21
+epochs = 20
 
 
 total_time=0

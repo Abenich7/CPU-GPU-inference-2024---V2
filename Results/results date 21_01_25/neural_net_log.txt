@@ -1,0 +1,216 @@
+Learning task: neural net on concentric circles 
+
+DATA parameters: 
+	SAMPLES: 10,000
+	noise = 0.05  # רעש להוספה לנתונים
+	factor = 0.5  # היחס בין רדיוס העיגולים
+	train_ratio= 0.8
+
+MODEL parameters:
+	Data batch size: 64
+	Num_layers of model: 3 
+	Layer sizes: Layer 1= 2x128, Layer 2= 128x128, Layer 3= 128x2
+	Loss fn= nn.CrossEntropyLoss()
+	Optimizer= torch.optim.SGD(model.parameters(), lr=1e-3)
+	Epochs= 21
+
+Summary of results (after all epochs):
+	Accuracy: 99.6% (with more epochs accuracy reaches 100%)
+	Loss: 0.486441
+
+Detailed results:
+
+Epoch 1
+-------------------------------
+loss: 0.693016  [   64/ 8000]
+loss: 0.685626  [ 6464/ 8000]
+Time for Epoch 1: 0.6429486274719238 sec 
+
+Test Error:
+ Accuracy: 72.9%, Avg loss: 0.685396 
+
+Epoch 2
+-------------------------------
+loss: 0.679039  [   64/ 8000]
+loss: 0.676333  [ 6464/ 8000]
+Time for Epoch 2: 0.82187819480896 sec 
+
+Test Error: 
+ Accuracy: 64.3%, Avg loss: 0.670945
+
+Epoch 3
+-------------------------------
+loss: 0.670131  [   64/ 8000]
+loss: 0.666892  [ 6464/ 8000]
+Time for Epoch 3: 0.864638090133667 sec 
+
+Test Error: 
+ Accuracy: 62.8%, Avg loss: 0.659860
+
+Epoch 4
+-------------------------------
+loss: 0.666313  [   64/ 8000]
+loss: 0.640308  [ 6464/ 8000]
+Time for Epoch 4: 0.7566771507263184 sec 
+
+Test Error: 
+ Accuracy: 59.5%, Avg loss: 0.650409
+
+Epoch 5
+-------------------------------
+loss: 0.652377  [   64/ 8000]
+loss: 0.668131  [ 6464/ 8000]
+Time for Epoch 5: 0.6348137855529785 sec 
+
+Test Error: 
+ Accuracy: 58.0%, Avg loss: 0.641673
+
+Epoch 6
+-------------------------------
+loss: 0.644436  [   64/ 8000]
+loss: 0.642597  [ 6464/ 8000]
+Time for Epoch 6: 0.7495272159576416 sec 
+
+Test Error: 
+ Accuracy: 57.9%, Avg loss: 0.633252
+
+Epoch 7
+-------------------------------
+loss: 0.620722  [   64/ 8000]
+loss: 0.648875  [ 6464/ 8000]
+Time for Epoch 7: 0.6631343364715576 sec 
+
+Test Error: 
+ Accuracy: 59.4%, Avg loss: 0.624974
+
+Epoch 8
+-------------------------------
+loss: 0.621853  [   64/ 8000]
+loss: 0.624015  [ 6464/ 8000]
+Time for Epoch 8: 0.7231097221374512 sec 
+
+Test Error: 
+ Accuracy: 61.0%, Avg loss: 0.616652
+
+Epoch 9
+-------------------------------
+loss: 0.605770  [   64/ 8000]
+loss: 0.600535  [ 6464/ 8000]
+Time for Epoch 9: 0.6342980861663818 sec 
+
+Test Error: 
+ Accuracy: 65.4%, Avg loss: 0.608294
+
+Epoch 10
+-------------------------------
+loss: 0.594619  [   64/ 8000]
+loss: 0.595924  [ 6464/ 8000]
+Time for Epoch 10: 0.6198904514312744 sec 
+
+Test Error: 
+ Accuracy: 70.5%, Avg loss: 0.599763
+
+Epoch 11
+-------------------------------
+loss: 0.601265  [   64/ 8000]
+loss: 0.597174  [ 6464/ 8000]
+Time for Epoch 11: 0.6492600440979004 sec 
+
+Test Error: 
+ Accuracy: 77.6%, Avg loss: 0.591041
+
+Epoch 12
+-------------------------------
+loss: 0.603423  [   64/ 8000]
+loss: 0.588724  [ 6464/ 8000]
+Time for Epoch 12: 0.658238410949707 sec 
+
+Test Error: 
+ Accuracy: 83.5%, Avg loss: 0.582089
+
+Epoch 13
+-------------------------------
+loss: 0.588168  [   64/ 8000]
+loss: 0.574369  [ 6464/ 8000]
+Time for Epoch 13: 0.7026357650756836 sec 
+
+Test Error: 
+ Accuracy: 88.0%, Avg loss: 0.572862
+
+Epoch 14
+-------------------------------
+loss: 0.573045  [   64/ 8000]
+loss: 0.528358  [ 6464/ 8000]
+Time for Epoch 14: 0.724581241607666 sec 
+
+Test Error: 
+ Accuracy: 92.0%, Avg loss: 0.563316
+
+Epoch 15
+-------------------------------
+loss: 0.590482  [   64/ 8000]
+loss: 0.567624  [ 6464/ 8000]
+Time for Epoch 15: 0.6656885147094727 sec 
+
+Test Error: 
+ Accuracy: 94.3%, Avg loss: 0.553361
+
+Epoch 16
+-------------------------------
+loss: 0.555438  [   64/ 8000]
+loss: 0.545656  [ 6464/ 8000]
+Time for Epoch 16: 0.7056338787078857 sec 
+
+Test Error: 
+ Accuracy: 96.0%, Avg loss: 0.542998
+
+Epoch 17
+-------------------------------
+loss: 0.546248  [   64/ 8000]
+loss: 0.550013  [ 6464/ 8000]
+Time for Epoch 17: 0.6453423500061035 sec 
+
+Test Error: 
+ Accuracy: 97.8%, Avg loss: 0.532275
+
+Epoch 18
+-------------------------------
+loss: 0.542966  [   64/ 8000]
+loss: 0.527262  [ 6464/ 8000]
+Time for Epoch 18: 0.7026448249816895 sec 
+
+Test Error: 
+ Accuracy: 98.7%, Avg loss: 0.521255
+
+Epoch 19
+-------------------------------
+loss: 0.548783  [   64/ 8000]
+loss: 0.534881  [ 6464/ 8000]
+Time for Epoch 19: 0.6627421379089355 sec 
+
+Test Error: 
+ Accuracy: 99.2%, Avg loss: 0.509942
+
+Epoch 20
+-------------------------------
+loss: 0.499609  [   64/ 8000]
+loss: 0.511740  [ 6464/ 8000]
+Time for Epoch 20: 0.6448028087615967 sec 
+
+Test Error: 
+ Accuracy: 99.3%, Avg loss: 0.498323
+
+Epoch 21
+-------------------------------
+loss: 0.539364  [   64/ 8000]
+loss: 0.511903  [ 6464/ 8000]
+Time for Epoch 21: 0.6392321586608887 sec 
+
+Test Error: 
+ Accuracy: 99.6%, Avg loss: 0.486441
+
+Done!
+Average training time: 0.6910341807774135 seconds
+
+Saved PyTorch Model State to model_weights.pth
+

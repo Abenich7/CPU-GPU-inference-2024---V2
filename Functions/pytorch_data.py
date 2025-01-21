@@ -147,6 +147,7 @@ plt.show()
 num_samples = 10000
 noise = 0.05  # רעש להוספה לנתונים
 factor = 0.5  # היחס בין רדיוס העיגולים
+train_ratio=0.8
 
 # יצירת הדאטה
 X, y = make_circles(n_samples=num_samples, noise=noise, factor=factor, random_state=42)

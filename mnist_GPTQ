@@ -1,0 +1,54 @@
+import torch, time
+from torch import nn
+from torchvision import datasets, transforms
+from torch.utils.data import DataLoader
+
+from gptq import GPTQ       # מתוך החבילה IST-DASLab gptq
+from model2 import CNNModel2
+from mnist_train import evaluate
+
+
+def main():
+    device = "cuda" if torch.cuda.is_available() else "cpu"
+    loss_fn = nn.CrossEntropyLoss()
+
+    # 1. טוענים מודל מאומן
+    model = CNNModel2().to(device)
+    model.load_state_dict(torch.load("baseline.pth", map_location=device))
+    model.eval()
+
+    # 2. דאטה כיול קטן (batch אחד מספק)
+    subloader = DataLoader(
+        datasets.MNIST("mnist", train=True, download=True,
+                       transform=transforms.ToTensor()),
+        batch_size=128, shuffle=True
+    )
+    inputs, _ = next(iter(subloader))
+    inputs = inputs.to(device)
+
+    # 3. Quantize לכל שכבת Linear/Conv (4-bit weights)
+    for name, m in model.named_modules():
+        if isinstance(m, (nn.Linear, nn.Conv2d)):
+            gptq = GPTQ(m)
+            gptq.quantizer.configure(bits=4, perchannel=True)
+            gptq.add_batch(inputs)
+            gptq.fasterquant(percdamp=0.01, groupsize=32)
+            gptq.free()
+            print(f"[GPTQ] quantized layer {name}")
+
+    # 4. הערכת ביצועים
+    test_loader = DataLoader(
+        datasets.MNIST("mnist", train=False, download=True,
+                       transform=transforms.ToTensor()),
+        batch_size=256, shuffle=False
+    )
+    t0 = time.time()
+    acc, val_loss = evaluate(test_loader, model, loss_fn, device)
+    print(f"[GPTQ] 4-bit-weights accuracy: {acc:.2f}% | val_loss {val_loss:.4f} | time {time.time()-t0:.1f}s")
+
+    # 5. שמירת המשקולות המקוונטות
+    torch.save(model.state_dict(), "cnn_gptq_w4.pth")
+
+
+if _name_ == "_main_":
+    main()

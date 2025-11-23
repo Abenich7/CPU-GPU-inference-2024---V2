@@ -60,36 +60,8 @@ def raw_data_to_tensors(X,y):
 
     
 
-#print(train_dataset[0])
-#print(train_dataset[6000])
-#print(train_dataset[6000][0])
-#print(train_dataset[222])
-#print(train_dataset[5600])
-#print(train_dataset[1023])
-
-
-
-# שמירת ה-TensorDataset לקבצים
-#train_dataset_path = os.path.join(data_dir, 'gaussian_train_dataset.pt')
-#test_dataset_path = os.path.join(data_dir, 'gaussian_test_dataset.pt')
-
-#torch.save(train_dataset, train_dataset_path)
-#torch.save(test_dataset, test_dataset_path)
-
-#print(f"Train dataset saved to {train_dataset_path}")
-#print(f"Test dataset saved to {test_dataset_path}")
-
-
 def save_dataset_with_new_name(dataset, data_dir, new_name, dataset_type='train'):
-    """
-    Save the dataset with a new name, ensuring the file does not already exist.
-
-    Args:
-        dataset: The dataset to be saved (e.g., TensorDataset).
-        data_dir: Directory to save the dataset.
-        new_name: Desired new name for the file.
-        dataset_type: Either 'train' or 'test' to indicate the dataset type.
-    """
+  
     # Construct the new path
     filename = f"{new_name}_{dataset_type}_dataset.pt"
     new_dataset_path = os.path.join(data_dir, filename)

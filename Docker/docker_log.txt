@@ -1,0 +1,72 @@
+[benilla@dsigpu03 docker]$ docker compose up --build
+WARN[0000] The "DISPLAY" variable is not set. Defaulting to a blank string. 
+WARN[0000] /home/dsi/benilla/docker/docker-compose.yml: the attribute `version` is obsolete, it will be ignored, please remove it to avoid potential confusion 
+Compose can now delegate builds to bake for better performance.
+ To do so, set COMPOSE_BAKE=true.
+[+] Building 3.7s (12/12) FINISHED docker:default
+ => [service_gpu_for_inference internal] l  0.0s
+ => => transferring dockerfile: 1.14kB      0.0s
+ => [service_gpu_for_inference internal] l  0.0s
+ => [service_gpu_for_inference internal] l  0.0s
+ => => transferring context: 2B             0.0s
+ => [service_gpu_for_inference 1/6] FROM n  0.0s
+ => [service_gpu_for_inference internal] l  0.0s
+ => => transferring context: 140B           0.0s
+ => CACHED [service_gpu_for_inference 2/6]  0.0s
+ => [service_gpu_for_inference 3/6] WORKDI  0.0s
+ => [service_gpu_for_inference 4/6] RUN mk  0.2s
+ => [service_gpu_for_inference 5/6] COPY r  0.0s
+ => [service_gpu_for_inference 6/6] RUN pi  3.4s
+ => [service_gpu_for_inference] exporting   0.0s
+ => => exporting layers                     0.0s
+ => => writing image sha256:96e0936dfc4563  0.0s
+ => => naming to docker.io/library/benilla  0.0s
+ => [service_gpu_for_inference] resolving   0.0s
+[+] Running 2/2
+ ✔ service_gpu_for_inference                      Built0.0s 
+ ✔ Container benilla_gpu_for_inference_container  Created0.0s 
+Attaching to benilla_gpu_for_inference_container
+benilla_gpu_for_inference_container  | 
+benilla_gpu_for_inference_container  | =============
+benilla_gpu_for_inference_container  | == PyTorch ==
+benilla_gpu_for_inference_container  | =============
+benilla_gpu_for_inference_container  | 
+benilla_gpu_for_inference_container  | NVIDIA Release 25.03 (build 148941828)
+benilla_gpu_for_inference_container  | PyTorch Version 2.7.0a0+7c8ec84
+benilla_gpu_for_inference_container  | Container image Copyright (c) 2025, NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+benilla_gpu_for_inference_container  | Copyright (c) 2014-2024 Facebook Inc.
+benilla_gpu_for_inference_container  | Copyright (c) 2011-2014 Idiap Research Institute (Ronan Collobert)
+benilla_gpu_for_inference_container  | Copyright (c) 2012-2014 Deepmind Technologies    (Koray Kavukcuoglu)
+benilla_gpu_for_inference_container  | Copyright (c) 2011-2012 NEC Laboratories America (Koray Kavukcuoglu)
+benilla_gpu_for_inference_container  | Copyright (c) 2011-2013 NYU                      (Clement Farabet)
+benilla_gpu_for_inference_container  | Copyright (c) 2006-2010 NEC Laboratories America (Ronan Collobert, Leon Bottou, Iain Melvin, Jason Weston)
+benilla_gpu_for_inference_container  | Copyright (c) 2006      Idiap Research Institute (Samy Bengio)
+benilla_gpu_for_inference_container  | Copyright (c) 2001-2004 Idiap Research Institute (Ronan Collobert, Samy Bengio, Johnny Mariethoz)
+benilla_gpu_for_inference_container  | Copyright (c) 2015      Google Inc.
+benilla_gpu_for_inference_container  | Copyright (c) 2015      Yangqing Jia
+benilla_gpu_for_inference_container  | Copyright (c) 2013-2016 The Caffe contributors
+benilla_gpu_for_inference_container  | All rights reserved.
+benilla_gpu_for_inference_container  | 
+benilla_gpu_for_inference_container  | Various files include modifications (c) NVIDIA CORPORATION & AFFILIATES.  All rights reserved.
+benilla_gpu_for_inference_container  | 
+benilla_gpu_for_inference_container  | GOVERNING TERMS: The software and materials are governed by the NVIDIA Software License Agreement
+benilla_gpu_for_inference_container  | (found at https://www.nvidia.com/en-us/agreements/enterprise-software/nvidia-software-license-agreement/)
+benilla_gpu_for_inference_container  | and the Product-Specific Terms for NVIDIA AI Products
+benilla_gpu_for_inference_container  | (found at https://www.nvidia.com/en-us/agreements/enterprise-software/product-specific-terms-for-ai-products/).
+benilla_gpu_for_inference_container  | ERROR: Detected NVIDIA GeForce GTX 1080 Ti GPU, which is not supported by this container
+benilla_gpu_for_inference_container  | ERROR: Detected NVIDIA GeForce GTX 1080 Ti GPU, which is not supported by this container
+benilla_gpu_for_inference_container  | ERROR: Detected NVIDIA GeForce GTX 1080 Ti GPU, which is not supported by this container
+benilla_gpu_for_inference_container  | ERROR: Detected NVIDIA GeForce GTX 1080 Ti GPU, which is not supported by this container
+benilla_gpu_for_inference_container  | ERROR: No supported GPU(s) detected to run this container
+benilla_gpu_for_inference_container  | 
+benilla_gpu_for_inference_container  | WARNING: CUDA Minor Version Compatibility mode ENABLED.
+benilla_gpu_for_inference_container  |   Using driver version 555.42.06 which has support for CUDA 12.5.  This container
+benilla_gpu_for_inference_container  |   was built with CUDA 12.8 and will be run in Minor Version Compatibility mode.
+benilla_gpu_for_inference_container  |   CUDA Forward Compatibility is preferred over Minor Version Compatibility for use
+benilla_gpu_for_inference_container  |   with this container but was unavailable:
+benilla_gpu_for_inference_container  |   [[System has unsupported display driver / cuda driver combination (CUDA_ERROR_SYSTEM_DRIVER_MISMATCH) cuInit()=803]]
+benilla_gpu_for_inference_container  |   See https://docs.nvidia.com/deploy/cuda-compatibility/ for details.
+benilla_gpu_for_inference_container  | 
+
+
+w Enable Watch

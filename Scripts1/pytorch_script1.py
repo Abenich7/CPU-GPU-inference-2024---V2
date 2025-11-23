@@ -77,7 +77,7 @@ loss_fn = nn.CrossEntropyLoss()
 optimizer = torch.optim.SGD(model.parameters(), lr=1e-3)
 
 
-epochs = 20
+epochs = 80
 
 
 total_time=0
@@ -98,7 +98,7 @@ else:
     print("No checkpoint found, starting from scratch")
 
 #train_losses = []
-#test_losses = []
+test_loss_values = []
 #acc=[]
 #model.load_state_dict(torch.load("model_weights.pth", weights_only=True))
 
@@ -129,8 +129,11 @@ for t in range(epochs):
     time_diff=end_time-start_time
     print(f"Time for Epoch {t+1}: {time_diff} sec \n")
 
-    pred,X_0,X_1=pytorch_test.test(test_dataloader, model, loss_fn)
+    pred,X_0,X_1,test_loss=pytorch_test.test(test_dataloader, model, loss_fn)
     
+    # Append the test loss value to the list
+    test_loss_values.append(test_loss)
+
     total_time = total_time+time_diff
     
 print("Done!")
@@ -155,6 +158,16 @@ ax.scatter(X_1[:,0],X_1[:,1])
 
 plt.title("MODEL")
 plt.grid(True)
+plt.show()
+
+
+# Plot the test loss values
+plt.figure(figsize=(10, 5))
+plt.plot(test_loss_values, label='Test Loss')
+plt.xlabel('Epoch')
+plt.ylabel('Loss')
+plt.title('Test Loss Convergence')
+plt.legend()
 plt.show()
 
 

@@ -1,7 +1,8 @@
 from pathlib import Path
+import sys
 
 # קבלת הנתיב של הסקריפט הנוכחי
-current_dir = Path(_file_).parent
+current_dir = 'CPU-GPU-inference-2024'
 
 # הגדרת נתיבים יחסיים
 MODELS_PATH = current_dir / 'Models'

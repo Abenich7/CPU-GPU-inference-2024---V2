@@ -1,0 +1,43 @@
+{
+  "os":  "Linux-5.14.0-570.23.1.el9_6.x86_64-x86_64-with-glibc2.39",
+  "python":  "CPython 3.12.3",
+  "startedAt":  "2025-07-03T08:09:37.853066Z",
+  "program":  "/home/workspace/benilla/mnist_model/mnist_inference.py",
+  "codePath":  "mnist_inference.py",
+  "codePathLocal":  "mnist_inference.py",
+  "email":  "abenillouche07@gmail.com",
+  "root":  "/home/workspace/benilla/mnist_model",
+  "host":  "dsiaspl03",
+  "executable":  "/usr/bin/python",
+  "cpu_count":  32,
+  "cpu_count_logical":  64,
+  "gpu":  "NVIDIA GeForce RTX 2080 Ti",
+  "gpu_count":  2,
+  "disk":  {
+    "/":  {
+      "total":  "947919388672",
+      "used":  "316198944768"
+    }
+  },
+  "memory":  {
+    "total":  "134256840704"
+  },
+  "gpu_nvidia":  [
+    {
+      "name":  "NVIDIA GeForce RTX 2080 Ti",
+      "memoryTotal":  "11811160064",
+      "cudaCores":  4352,
+      "architecture":  "Turing",
+      "uuid":  "GPU-41e03dc0-87a8-650d-7fbb-8f5d9c65e910"
+    },
+    {
+      "name":  "NVIDIA GeForce RTX 2080 Ti",
+      "memoryTotal":  "11811160064",
+      "cudaCores":  4352,
+      "architecture":  "Turing",
+      "uuid":  "GPU-6acdc64d-8673-7244-5ff4-f0fceba8425c"
+    }
+  ],
+  "cudaVersion":  "12.9",
+  "writerId":  "26nk6ct3lggy1iifqpdjou11mek2oh9m"
+}

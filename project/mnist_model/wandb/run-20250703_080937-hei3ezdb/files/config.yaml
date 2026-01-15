@@ -1,0 +1,53 @@
+_wandb:
+    value:
+        cli_version: 0.21.0
+        e:
+            26nk6ct3lggy1iifqpdjou11mek2oh9m:
+                codePath: mnist_inference.py
+                codePathLocal: mnist_inference.py
+                cpu_count: 32
+                cpu_count_logical: 64
+                cudaVersion: "12.9"
+                disk:
+                    /:
+                        total: "947919388672"
+                        used: "316198944768"
+                email: abenillouche07@gmail.com
+                executable: /usr/bin/python
+                gpu: NVIDIA GeForce RTX 2080 Ti
+                gpu_count: 2
+                gpu_nvidia:
+                    - architecture: Turing
+                      cudaCores: 4352
+                      memoryTotal: "11811160064"
+                      name: NVIDIA GeForce RTX 2080 Ti
+                      uuid: GPU-41e03dc0-87a8-650d-7fbb-8f5d9c65e910
+                    - architecture: Turing
+                      cudaCores: 4352
+                      memoryTotal: "11811160064"
+                      name: NVIDIA GeForce RTX 2080 Ti
+                      uuid: GPU-6acdc64d-8673-7244-5ff4-f0fceba8425c
+                host: dsiaspl03
+                memory:
+                    total: "134256840704"
+                os: Linux-5.14.0-570.23.1.el9_6.x86_64-x86_64-with-glibc2.39
+                program: /home/workspace/benilla/mnist_model/mnist_inference.py
+                python: CPython 3.12.3
+                root: /home/workspace/benilla/mnist_model
+                startedAt: "2025-07-03T08:09:37.853066Z"
+                writerId: 26nk6ct3lggy1iifqpdjou11mek2oh9m
+        m: []
+        python_version: 3.12.3
+        t:
+            "1":
+                - 1
+                - 41
+                - 105
+            "2":
+                - 1
+                - 41
+                - 105
+            "4": 3.12.3
+            "5": 0.21.0
+            "12": 0.21.0
+            "13": linux-x86_64

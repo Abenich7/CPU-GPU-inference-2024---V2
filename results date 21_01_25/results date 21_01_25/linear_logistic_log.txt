@@ -1,0 +1,17 @@
+Learning task: linear and logistic regression on concentric circles
+
+Logistic Regression:
+Accuracy: 0.5490
+MSE: 0.4510
+Confusion Matrix:
+[[389 624]
+ [278 709]]
+AUC: 0.4883
+
+Linear Regression (as Classifier):
+Accuracy: 0.5490
+MSE: 0.4510
+Confusion Matrix:
+[[389 624]
+ [278 709]]
+AUC: 0.4883

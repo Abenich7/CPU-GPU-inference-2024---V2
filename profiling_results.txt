@@ -1,0 +1,58 @@
+1. 
+
+***RUN DESCRIPTION: ****
+model: LINEAR MODEL 5 layers
+***Inference on 10k samples of mnist digit dataset, sample size: 784 bytes, batch size: 1 ****
+
+=== Top CUDA operations ===
+-------------------------------------------------------  ------------  ------------  ------------  ------------  ------------  ------------  ----------
+Name           Self CPU %     Self CPU   CPU total %     CPU total  CPU time avg     Self CUDA   Self CUDA %    CUDA total     CUDA time avg  # of Calls  
+-------------------------------------------------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------    
+ProfilerStep*       0.00%       0.000us         0.00%       0.000us       0.000us        8.365s      3235.74%        8.365s        8.365s        1  
+ProfilerStep*      14.61%        1.223s       100.00%        8.366s        4.183s       0.000us         0.00%     258.523ms     129.262ms        2  
+aten::linear       0.99%      82.668ms        18.52%        1.550s      51.651us       0.000us         0.00%      93.892ms       3.130us         30000  
+aten::addmm        10.21%     854.305ms        15.57%        1.302s      43.406us      93.880ms        36.32%      93.892ms       3.130us        30000  
+aten::item         0.50%      41.791ms         3.37%     282.096ms       9.403us       0.000us         0.00%      56.134ms       1.871us         30001  
+aten::_local_scalar_dense 1.02%  85.137ms  2.87%     240.305ms       8.010us      56.128ms        21.71%      56.134ms       1.871us             30001  
+aten::argmax      2.03%     169.729ms         2.99%     249.727ms      24.973us      48.851ms        18.90%      48.851ms       4.885us          10000  
+void at::native::reduce_kernel 0.00%  0.000us   0.00%       0.000us       0.000us      48.851ms        18.90%      48.851ms       4.885us        10000  
+Stream Sync         0.00%       0.000us         0.00%       0.000us       0.000us      43.554ms        16.85%      43.554ms       4.355us        10000  
+std::enable_if<!(false)0.00%       0.000us     0.00%       0.000us       0.000us      42.916ms        16.60%      42.916ms       4.292us         10000  
+-------------------------------------------------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------   
+Self CPU time total: 8.366s
+Self CUDA time total: 258.506ms
+
+
+
+2. 
+
+***RUN DESCRIPTION: ****
+MODEL: LINEAR MODEL 5 layers
+***Inference on 10k samples of mnist digit dataset, sample size: 784 bytes, batch size: 32 ****
+
+
+
+3. 
+MODEL: RESNET 18
+
+Running Resnet 18  inference
+=== Top CUDA operations ===
+-------------------------------------------------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  -
+Name    Self CPU %      Self CPU   CPU total %     CPU total  CPU time avg     Self CUDA   Self CUDA %    CUDA total  CUDA time avg    # of Calls  
+-------------------------------------------------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  
+ProfilerStep*         0.00%       0.000us         0.00%       0.000us       0.000us       3.554ms       228.35%       3.554ms       3.554ms             1  
+ProfilerStep*        30.38%       1.156ms        99.72%       3.796ms       1.898ms       0.000us         0.00%       1.548ms     773.823us             2  
+aten::conv2d         0.96%      36.430us        25.38%     966.036us      48.302us       0.000us         0.00%       1.391ms      69.555us            20  
+aten::convolution      1.74%      66.237us        24.42%     929.606us      46.480us       0.000us         0.00%       1.391ms      69.555us            20  
+aten::_convolution      2.53%      96.158us        22.68%     863.369us      43.168us       0.000us         0.00%       1.391ms      69.555us            20  
+aten::cudnn_convolution 13.45%     511.893us        20.15%     767.211us      38.361us       1.391ms        89.38%       1.391ms      69.555us            20  
+_5x_cudnn_volta_         0.00%       0.000us         0.00%       0.000us       0.000us     795.806us        51.13%     795.806us      61.216us            13  
+void implicit_convolve  0.00%       0.000us         0.00%       0.000us       0.000us     285.247us        18.33%     285.247us      95.082us             3  
+void cudnn::winograd:: 0.00%       0.000us         0.00%       0.000us       0.000us     219.359us        14.09%     219.359us      16.874us            13  
+aten::batch_norm         0.99%      37.571us        27.27%       1.038ms      51.902us       0.000us         0.00%      75.201us       3.760us            20  
+-------------------------------------------------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  -
+Self CPU time total: 3.807ms
+Self CUDA time total: 1.556ms
+
+
+

@@ -1,0 +1,8 @@
+model_name,model_type,model_quantization,model_path,batch_size,num_workers
+resnet18,pytorch,none,resnet18_dogs_80%_acc.pth,8,0
+resnet18,pytorch,fp16,resnet18_dogs_80%_acc.pth,8,16
+resnet18,pytorch,none,resnet18_dogs_80%_acc.pth,8,1
+resnet18,pytorch,none,resnet18_dogs_80%_acc.pth,8,1
+resnet18,trt,FP16,trt_engine_dogs_80%_acc_fp16,64,1
+resnet18,trt,int8,trt_engine_dogs_80%_acc_int8,8,1
+

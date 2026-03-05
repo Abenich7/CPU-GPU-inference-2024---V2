@@ -26,7 +26,7 @@ import csv
 import time
 import contextlib
 
-from torch.cuda import Stream
+from torch.cuda import Stream, memory
 from .profiler_for_inference import benchmark_with_profiler
 
 #define device
@@ -60,7 +60,7 @@ test_transform = v2.Compose([
     v2.ToImage(),
     v2.Resize(256),
     v2.CenterCrop(224),
-    v2.ToDtype(torch.float32, scale=True),
+    v2.ToDtype(torch.float16, scale=True),
     v2.Normalize(
         mean=[0.485, 0.456, 0.406],
         std=[0.229, 0.224, 0.225]
@@ -96,8 +96,8 @@ train_dataset = Subset(full_data_train, test_idx)
 
 
 # Create DataLoaders
-train_loader = DataLoader(train_dataset, shuffle=True, num_workers=1, pin_memory=True, batch_size=32)
-test_loader = DataLoader(test_dataset, shuffle=True, num_workers=1, pin_memory=True, batch_size=32)
+#train_loader = DataLoader(train_dataset, shuffle=True, num_workers=1, pin_memory=True, batch_size=32)
+#test_loader = DataLoader(test_dataset, shuffle=True, num_workers=1, pin_memory=True, batch_size=32)
 
 #history = {
  #   'epoch': [], 'train_loss': [], 'train_acc': [], 'train_precision': [], 'train_recall': [], 'train_f1': [],
@@ -107,9 +107,53 @@ test_loader = DataLoader(test_dataset, shuffle=True, num_workers=1, pin_memory=T
 
 
 
-
 #evaluate the model between training epochs
 def test_model(model_path,test_loader):
+    
+
+    model=load_model(model_path)
+
+    model.eval()
+    test_loss, test_labels, test_preds = 0.0, [], []
+    criterion = nn.CrossEntropyLoss()
+
+
+    
+    with torch.no_grad():
+        with tqdm(test_loader,desc="running inference") as t:
+                
+                for images, labels in t:
+                    images=images.to(device)
+                    labels=labels.to(device)
+                
+                    with torch.autocast(device_type="cuda",dtype=torch.float16):
+                        outputs = model(images)
+        
+                
+                    loss = criterion(outputs, labels)
+                    test_loss += loss.item()
+                    _, preds = torch.max(outputs, 1)
+                    test_labels.extend(labels.cpu().numpy())
+                    test_preds.extend(preds.cpu().numpy())
+            
+        
+    elapsed_time=t.format_dict['elapsed']
+    iteration_rate=t.format_dict['rate']
+
+    test_acc = accuracy_score(test_labels, test_preds)
+    test_precision = precision_score(test_labels, test_preds, average='weighted', zero_division=0)
+    test_recall = recall_score(test_labels, test_preds, average='weighted', zero_division=0)
+    test_f1 = f1_score(test_labels, test_preds, average='weighted', zero_division=0)
+    print(f" Acc: {test_acc:.4f} | Precision: {test_precision:.4f} | Recall: {test_recall:.4f} | F1: {test_f1:.4f}")
+
+    return elapsed_time,iteration_rate,test_acc, test_precision, test_recall, test_f1
+
+
+
+
+
+#evaluate the model between training epochs
+def test_model_async_h2d(model_path,test_loader):
     model=load_model(model_path)
 
     model.eval()
@@ -120,23 +164,25 @@ def test_model(model_path,test_loader):
     
     with torch.no_grad():
         with tqdm(test_loader,desc="running inference") as t:
-                with torch.cuda.stream(s):
                     for images, labels in t:
-                        images, labels = images.to(device if torch.cuda.is_available() else 'cpu', non_blocking=True), labels.to(device if torch.cuda.is_available() else 'cpu', non_blocking=True)
-                    cuda_h2d_event=s.record_event()
-                
-                outputs = model(images)
-                cuda_output_event=torch.cuda.current_stream().record_event()
-                
-                cuda_h2d_event.synchronize()
-                cuda_output_event.synchronize()
+                        with torch.cuda.stream(s):
+                            images, labels = images.to(device if torch.cuda.is_available() else 'cpu', non_blocking=True), labels.to(device if torch.cuda.is_available() else 'cpu', non_blocking=True)
+                        
+                        cuda_h2d_event=s.record_event()
+                    
+                        with torch.autocast(device_type="cuda",dtype=torch.float16):
+                            outputs = model(images)
+                        cuda_output_event=torch.cuda.current_stream().record_event()
+                        
+                        cuda_h2d_event.synchronize()
+                        cuda_output_event.synchronize()
 
-                loss = criterion(outputs, labels)
-                test_loss += loss.item()
-                _, preds = torch.max(outputs, 1)
-                test_labels.extend(labels.cpu().numpy())
-                test_preds.extend(preds.cpu().numpy())
-        
+                        loss = criterion(outputs, labels)
+                        test_loss += loss.item()
+                        _, preds = torch.max(outputs, 1)
+                        test_labels.extend(labels.cpu().numpy())
+                        test_preds.extend(preds.cpu().numpy())
+            
         
     elapsed_time=t.format_dict['elapsed']
     iteration_rate=t.format_dict['rate']
@@ -381,18 +427,18 @@ def test_model_fp16_no_calibration(model_path,test_loader):
 
                     cuda_h2d_event=s.record_event()
                 
-                outputs = model(images)
-                cuda_output_event=torch.cuda.current_stream().record_event()
-                
-                cuda_h2d_event.synchronize()
-                cuda_output_event.synchronize()
+                    outputs = model(images)
+                    cuda_output_event=torch.cuda.current_stream().record_event()
+                    
+                    cuda_h2d_event.synchronize()
+                    cuda_output_event.synchronize()
 
-                loss = criterion(outputs, labels)
-                test_loss += loss.item()
-                _, preds = torch.max(outputs, 1)
-                test_labels.extend(labels.cpu().numpy())
-                test_preds.extend(preds.cpu().numpy())
-            
+                    loss = criterion(outputs, labels)
+                    test_loss += loss.item()
+                    _, preds = torch.max(outputs, 1)
+                    test_labels.extend(labels.cpu().numpy())
+                    test_preds.extend(preds.cpu().numpy())
+                
         
     elapsed_time=t.format_dict['elapsed']
     iteration_rate=t.format_dict['rate']
@@ -570,7 +616,7 @@ def prepare_model_dataset(
 
             num_workers=num_workers,
            
-            pin_memory=True,
+            shuffle=True
             
            
         )
@@ -705,6 +751,8 @@ configs = [
 
 
 #train_model(full_data_train,1e-4,3600,0.9,'resnet18_dogs_80%_acc.pth')
+
+torch.cuda.memory.empty_cache()
 
 experiments_data(configs)
 
